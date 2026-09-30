@@ -10,9 +10,13 @@
 
 body {
     margin: 0;
+    padding: 10px;
     background: #0f172a;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        "Noto Sans KR",
+        sans-serif;
 }
 
 .game-container {
@@ -22,21 +26,34 @@ body {
     text-align: center;
 }
 
+.game-title {
+    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
 .info {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     margin-bottom: 10px;
-    padding: 10px;
+}
+
+.info-box {
+    padding: 10px 5px;
     background: #1e293b;
-    border-radius: 12px;
-    font-size: 16px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    font-size: 14px;
     font-weight: bold;
 }
 
-.info span {
+.info-value {
+    display: block;
+    margin-top: 3px;
     color: #38bdf8;
+    font-size: 20px;
 }
 
 #game {
@@ -45,60 +62,116 @@ body {
     max-width: 700px;
     height: auto;
     margin: 0 auto;
+
     background: #020617;
+
     border: 3px solid #38bdf8;
     border-radius: 12px;
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+
+    box-shadow:
+        0 0 25px
+        rgba(56, 189, 248, 0.22);
+
     touch-action: none;
 }
 
 .message {
-    min-height: 30px;
-    margin-top: 12px;
+    min-height: 28px;
+    margin-top: 10px;
+
     color: #e2e8f0;
-    font-size: 17px;
+
+    font-size: 16px;
     font-weight: bold;
 }
 
-button {
-    border: 0;
-    border-radius: 10px;
-    padding: 12px 25px;
+#startButton {
     margin-top: 5px;
+    padding: 12px 28px;
+
+    border: none;
+    border-radius: 10px;
+
     background: #38bdf8;
     color: #082f49;
+
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 800;
+
     cursor: pointer;
 }
 
-button:hover {
+#startButton:hover {
     background: #7dd3fc;
-}
-
-.controls {
-    margin-top: 10px;
-    color: #94a3b8;
-    font-size: 13px;
-    line-height: 1.6;
 }
 
 .mobile-controls {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
+    gap: 12px;
+
+    margin-top: 12px;
 }
 
-.mobile-controls button {
-    width: 100px;
-    margin: 0;
+.control-button {
+    width: 120px;
+    min-height: 46px;
+
+    border: none;
+    border-radius: 10px;
+
     background: #334155;
     color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    touch-action: none;
+    user-select: none;
 }
 
-.mobile-controls button:active {
+.control-button:active {
     background: #475569;
+    transform: scale(0.97);
+}
+
+.help {
+    margin-top: 10px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .game-title {
+        font-size: 21px;
+    }
+
+    .info-box {
+        padding: 7px 3px;
+        font-size: 12px;
+    }
+
+    .info-value {
+        font-size: 17px;
+    }
+
+    .mobile-controls {
+        gap: 8px;
+    }
+
+    .control-button {
+        width: 105px;
+    }
 }
 </style>
 </head>
@@ -107,21 +180,39 @@ button:hover {
 
 <div class="game-container">
 
+    <div class="game-title">
+        🧱 BRICK BREAKER
+    </div>
+
     <div class="info">
-        <div>
+
+        <div class="info-box">
             점수
-            <span id="score">0</span>
+            <span
+                class="info-value"
+                id="score">
+                0
+            </span>
         </div>
 
-        <div>
+        <div class="info-box">
             목숨
-            <span id="lives">3</span>
+            <span
+                class="info-value"
+                id="lives">
+                3
+            </span>
         </div>
 
-        <div>
+        <div class="info-box">
             레벨
-            <span id="level">1</span>
+            <span
+                class="info-value"
+                id="level">
+                1
+            </span>
         </div>
+
     </div>
 
     <canvas
@@ -141,13 +232,25 @@ button:hover {
     </button>
 
     <div class="mobile-controls">
-        <button id="leftButton">◀ 왼쪽</button>
-        <button id="rightButton">오른쪽 ▶</button>
+
+        <button
+            class="control-button"
+            id="leftButton">
+            ◀ 왼쪽
+        </button>
+
+        <button
+            class="control-button"
+            id="rightButton">
+            오른쪽 ▶
+        </button>
+
     </div>
 
-    <div class="controls">
+    <div class="help">
         PC: ← → 방향키<br>
-        모바일: 아래 버튼 또는 화면을 터치해서 패들을 움직이세요
+        마우스: 패들 위에서 움직이기<br>
+        모바일: 화면을 터치하거나 아래 버튼 사용
     </div>
 
 </div>
@@ -155,150 +258,212 @@ button:hover {
 <script>
 "use strict";
 
-/* ================================
-   기본 설정
-================================ */
+/* =========================================
+   DOM
+========================================= */
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+const canvas =
+    document.getElementById("game");
 
-const scoreText = document.getElementById("score");
-const livesText = document.getElementById("lives");
-const levelText = document.getElementById("level");
-const message = document.getElementById("message");
-const startButton = document.getElementById("startButton");
+const ctx =
+    canvas.getContext("2d");
 
-const leftButton = document.getElementById("leftButton");
-const rightButton = document.getElementById("rightButton");
+const scoreElement =
+    document.getElementById("score");
 
-const WIDTH = canvas.width;
-const HEIGHT = canvas.height;
+const livesElement =
+    document.getElementById("lives");
+
+const levelElement =
+    document.getElementById("level");
+
+const messageElement =
+    document.getElementById("message");
+
+const startButton =
+    document.getElementById("startButton");
+
+const leftButton =
+    document.getElementById("leftButton");
+
+const rightButton =
+    document.getElementById("rightButton");
 
 
-/* ================================
+/* =========================================
+   캔버스
+========================================= */
+
+const WIDTH = 700;
+const HEIGHT = 500;
+
+
+/* =========================================
    게임 상태
-================================ */
+========================================= */
 
 let score = 0;
 let lives = 3;
 let level = 1;
 
-let running = false;
+let gameRunning = false;
+
 let animationFrame = null;
 
 let leftPressed = false;
 let rightPressed = false;
 
 
-/* ================================
+/* =========================================
    공
-================================ */
+========================================= */
 
 const ball = {
+
     x: WIDTH / 2,
+
     y: HEIGHT - 80,
 
     radius: 8,
 
     dx: 4,
+
     dy: -4
 };
 
 
-/* ================================
+/* =========================================
    패들
-================================ */
+========================================= */
 
 const paddle = {
+
     width: 110,
+
     height: 14,
 
     x: WIDTH / 2 - 55,
+
     y: HEIGHT - 35,
 
     speed: 8
 };
 
 
-/* ================================
-   벽돌 설정
-================================ */
+/* =========================================
+   벽돌
+========================================= */
 
-const brickConfig = {
+const brickSettings = {
+
     rows: 6,
+
     columns: 9,
 
     width: 64,
+
     height: 24,
 
     padding: 10,
 
-    top: 45,
-    left: 29
+    offsetTop: 45,
+
+    offsetLeft: 29
 };
 
 let bricks = [];
 
 
-/* ================================
+/* =========================================
    벽돌 색상
-================================ */
+========================================= */
 
-const colors = [
+const brickColors = [
+
     "#ef4444",
+
     "#f97316",
+
     "#eab308",
+
     "#22c55e",
+
     "#06b6d4",
+
     "#8b5cf6"
 ];
 
 
-/* ================================
-   UI 업데이트
-================================ */
+/* =========================================
+   UI
+========================================= */
 
 function updateUI() {
 
-    scoreText.textContent = score;
-    livesText.textContent = lives;
-    levelText.textContent = level;
+    scoreElement.textContent =
+        score;
+
+    livesElement.textContent =
+        lives;
+
+    levelElement.textContent =
+        level;
 }
 
 
-/* ================================
-   벽돌 만들기
-================================ */
+/* =========================================
+   벽돌 생성
+========================================= */
 
 function createBricks() {
 
     bricks = [];
 
-    for (let row = 0; row < brickConfig.rows; row++) {
+    for (
+        let row = 0;
+        row < brickSettings.rows;
+        row++
+    ) {
 
         const currentRow = [];
 
-        for (let column = 0; column < brickConfig.columns; column++) {
+        for (
+            let column = 0;
+            column < brickSettings.columns;
+            column++
+        ) {
 
             currentRow.push({
 
                 x:
-                    brickConfig.left +
+                    brickSettings.offsetLeft +
                     column *
-                    (brickConfig.width + brickConfig.padding),
+                    (
+                        brickSettings.width +
+                        brickSettings.padding
+                    ),
 
                 y:
-                    brickConfig.top +
+                    brickSettings.offsetTop +
                     row *
-                    (brickConfig.height + brickConfig.padding),
+                    (
+                        brickSettings.height +
+                        brickSettings.padding
+                    ),
 
-                width: brickConfig.width,
-                height: brickConfig.height,
+                width:
+                    brickSettings.width,
+
+                height:
+                    brickSettings.height,
 
                 alive: true,
 
                 color:
-                    colors[row % colors.length]
+                    brickColors[
+                        row %
+                        brickColors.length
+                    ]
             });
         }
 
@@ -307,14 +472,67 @@ function createBricks() {
 }
 
 
-/* ================================
+/* =========================================
+   공 속도
+========================================= */
+
+function getBallSpeed() {
+
+    return 4.5 +
+        (level - 1) * 0.55;
+}
+
+
+/* =========================================
+   공 초기화
+========================================= */
+
+function resetBall() {
+
+    const speed =
+        getBallSpeed();
+
+    ball.x =
+        WIDTH / 2;
+
+    ball.y =
+        HEIGHT - 80;
+
+    ball.dx =
+        speed *
+        (
+            Math.random() < 0.5
+                ? -1
+                : 1
+        );
+
+    ball.dy =
+        -speed;
+}
+
+
+/* =========================================
+   패들 초기화
+========================================= */
+
+function resetPaddle() {
+
+    paddle.x =
+        WIDTH / 2 -
+        paddle.width / 2;
+}
+
+
+/* =========================================
    게임 초기화
-================================ */
+========================================= */
 
 function resetGame() {
 
     score = 0;
+
     lives = 3;
+
     level = 1;
 
     createBricks();
@@ -327,41 +545,9 @@ function resetGame() {
 }
 
 
-/* ================================
-   공 초기화
-================================ */
-
-function resetBall() {
-
-    ball.x = WIDTH / 2;
-    ball.y = HEIGHT - 80;
-
-    const speed =
-        4.5 + (level - 1) * 0.5;
-
-    ball.dx =
-        speed *
-        (Math.random() > 0.5 ? 1 : -1);
-
-    ball.dy = -speed;
-}
-
-
-/* ================================
-   패들 초기화
-================================ */
-
-function resetPaddle() {
-
-    paddle.x =
-        WIDTH / 2 -
-        paddle.width / 2;
-}
-
-
-/* ================================
+/* =========================================
    배경
-================================ */
+========================================= */
 
 function drawBackground() {
 
@@ -383,7 +569,8 @@ function drawBackground() {
         "#111827"
     );
 
-    ctx.fillStyle = gradient;
+    ctx.fillStyle =
+        gradient;
 
     ctx.fillRect(
         0,
@@ -394,9 +581,9 @@ function drawBackground() {
 }
 
 
-/* ================================
+/* =========================================
    공 그리기
-================================ */
+========================================= */
 
 function drawBall() {
 
@@ -410,31 +597,37 @@ function drawBall() {
         Math.PI * 2
     );
 
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle =
+        "#ffffff";
 
-    ctx.shadowColor = "#38bdf8";
-    ctx.shadowBlur = 15;
+    ctx.shadowColor =
+        "#38bdf8";
+
+    ctx.shadowBlur =
+        14;
 
     ctx.fill();
 
-    ctx.shadowBlur = 0;
+    ctx.shadowBlur =
+        0;
 
     ctx.closePath();
 }
 
 
-/* ================================
+/* =========================================
    패들 그리기
-================================ */
+========================================= */
 
 function drawPaddle() {
 
     const gradient =
         ctx.createLinearGradient(
-            paddle.x,
+            0,
             paddle.y,
-            paddle.x,
-            paddle.y + paddle.height
+            0,
+            paddle.y +
+            paddle.height
         );
 
     gradient.addColorStop(
@@ -447,7 +640,8 @@ function drawPaddle() {
         "#0284c7"
     );
 
-    ctx.fillStyle = gradient;
+    ctx.fillStyle =
+        gradient;
 
     ctx.beginPath();
 
@@ -460,18 +654,24 @@ function drawPaddle() {
     );
 
     ctx.fill();
+
+    ctx.closePath();
 }
 
 
-/* ================================
+/* =========================================
    벽돌 그리기
-================================ */
+========================================= */
 
 function drawBricks() {
 
-    for (const row of bricks) {
+    for (
+        const row of bricks
+    ) {
 
-        for (const brick of row) {
+        for (
+            const brick of row
+        ) {
 
             if (!brick.alive) {
                 continue;
@@ -496,14 +696,16 @@ function drawBricks() {
                 "rgba(255,255,255,0.3)";
 
             ctx.stroke();
+
+            ctx.closePath();
         }
     }
 }
 
 
-/* ================================
-   전체 화면 그리기
-================================ */
+/* =========================================
+   그리기
+========================================= */
 
 function draw() {
 
@@ -517,169 +719,255 @@ function draw() {
 }
 
 
-/* ================================
+/* =========================================
    패들 이동
-================================ */
+========================================= */
 
 function movePaddle() {
 
     if (leftPressed) {
-        paddle.x -= paddle.speed;
+
+        paddle.x -=
+            paddle.speed;
     }
 
     if (rightPressed) {
-        paddle.x += paddle.speed;
+
+        paddle.x +=
+            paddle.speed;
     }
 
     if (paddle.x < 0) {
+
         paddle.x = 0;
     }
 
     if (
-        paddle.x + paddle.width >
+        paddle.x +
+        paddle.width >
         WIDTH
     ) {
+
         paddle.x =
-            WIDTH - paddle.width;
+            WIDTH -
+            paddle.width;
     }
 }
 
 
-/* ================================
-   패들과 공 충돌
-================================ */
+/* =========================================
+   패들 충돌
+========================================= */
 
 function checkPaddleCollision() {
 
-    if (
+    const collision =
+
         ball.x + ball.radius >
-        paddle.x &&
+            paddle.x &&
 
         ball.x - ball.radius <
-        paddle.x + paddle.width &&
+            paddle.x +
+            paddle.width &&
 
         ball.y + ball.radius >
-        paddle.y &&
+            paddle.y &&
 
         ball.y - ball.radius <
-        paddle.y + paddle.height &&
+            paddle.y +
+            paddle.height &&
 
-        ball.dy > 0
-    ) {
+        ball.dy > 0;
 
-        ball.y =
-            paddle.y -
-            ball.radius;
-
-        /*
-         공이 패들의 어느 위치에
-         맞았는지 계산
-        */
-
-        const hit =
-            (ball.x - paddle.x) /
-            paddle.width;
-
-        const angle =
-            (hit - 0.5) *
-            Math.PI *
-            0.8;
-
-        const speed =
-            Math.sqrt(
-                ball.dx * ball.dx +
-                ball.dy * ball.dy
-            );
-
-        ball.dx =
-            Math.sin(angle) *
-            speed;
-
-        ball.dy =
-            -Math.abs(
-                Math.cos(angle) *
-                speed
-            );
+    if (!collision) {
+        return;
     }
+
+    ball.y =
+        paddle.y -
+        ball.radius;
+
+    /*
+        패들의 맞은 위치를
+        -1 ~ +1로 변환
+    */
+
+    const hitPosition =
+
+        (
+            ball.x -
+            (
+                paddle.x +
+                paddle.width / 2
+            )
+        ) /
+        (
+            paddle.width / 2
+        );
+
+    const currentSpeed =
+
+        Math.sqrt(
+            ball.dx * ball.dx +
+            ball.dy * ball.dy
+        );
+
+    const angle =
+
+        hitPosition *
+        Math.PI *
+        0.38;
+
+    ball.dx =
+        Math.sin(angle) *
+        currentSpeed;
+
+    ball.dy =
+        -Math.abs(
+            Math.cos(angle) *
+            currentSpeed
+        );
 }
 
 
-/* ================================
+/* =========================================
    벽돌 충돌
-================================ */
+========================================= */
 
 function checkBrickCollision() {
 
-    for (const row of bricks) {
+    for (
+        const row of bricks
+    ) {
 
-        for (const brick of row) {
+        for (
+            const brick of row
+        ) {
 
             if (!brick.alive) {
                 continue;
             }
 
             const collision =
-                ball.x + ball.radius >
+
+                ball.x +
+                    ball.radius >
                     brick.x &&
 
-                ball.x - ball.radius <
-                    brick.x + brick.width &&
+                ball.x -
+                    ball.radius <
+                    brick.x +
+                    brick.width &&
 
-                ball.y + ball.radius >
+                ball.y +
+                    ball.radius >
                     brick.y &&
 
-                ball.y - ball.radius <
-                    brick.y + brick.height;
+                ball.y -
+                    ball.radius <
+                    brick.y +
+                    brick.height;
 
-            if (collision) {
+            if (!collision) {
+                continue;
+            }
 
-                brick.alive = false;
+            brick.alive =
+                false;
 
-                score += 10;
+            score += 10;
+
+            /*
+                충돌 방향을 확인해서
+                공의 방향을 자연스럽게 바꾼다.
+            */
+
+            const previousX =
+                ball.x -
+                ball.dx;
+
+            const previousY =
+                ball.y -
+                ball.dy;
+
+            const hitFromSide =
+
+                previousX +
+                    ball.radius <=
+                    brick.x ||
+
+                previousX -
+                    ball.radius >=
+                    brick.x +
+                    brick.width;
+
+            if (hitFromSide) {
+
+                ball.dx *= -1;
+
+            } else {
 
                 ball.dy *= -1;
-
-                updateUI();
-
-                return;
             }
+
+            updateUI();
+
+            return;
         }
     }
 }
 
 
-/* ================================
-   레벨 클리어 확인
-================================ */
+/* =========================================
+   남은 벽돌 확인
+========================================= */
 
-function checkLevelClear() {
+function getRemainingBricks() {
 
-    let remaining = 0;
+    let count = 0;
 
-    for (const row of bricks) {
+    for (
+        const row of bricks
+    ) {
 
-        for (const brick of row) {
+        for (
+            const brick of row
+        ) {
 
             if (brick.alive) {
-                remaining++;
+                count++;
             }
         }
     }
 
-    if (remaining !== 0) {
+    return count;
+}
+
+
+/* =========================================
+   레벨 클리어
+========================================= */
+
+function checkLevelClear() {
+
+    if (
+        getRemainingBricks() !== 0
+    ) {
+
         return;
     }
 
     if (level >= 5) {
 
-        running = false;
+        gameRunning =
+            false;
 
         cancelAnimationFrame(
             animationFrame
         );
 
-        message.textContent =
-            "🎉 모든 레벨 클리어! 최종 점수: " +
+        messageElement.textContent =
+            "🎉 ALL CLEAR! 최종 점수: " +
             score;
 
         startButton.textContent =
@@ -698,24 +986,29 @@ function checkLevelClear() {
 
     updateUI();
 
-    message.textContent =
-        "🔥 레벨 " +
+    messageElement.textContent =
+        "🔥 LEVEL " +
         level +
         " 시작!";
 }
 
 
-/* ================================
-   공 움직이기
-================================ */
+/* =========================================
+   공 이동
+========================================= */
 
 function moveBall() {
 
-    ball.x += ball.dx;
-    ball.y += ball.dy;
+    ball.x +=
+        ball.dx;
+
+    ball.y +=
+        ball.dy;
 
 
-    /* 왼쪽 벽 */
+    /*
+        왼쪽 벽
+    */
 
     if (
         ball.x -
@@ -726,11 +1019,15 @@ function moveBall() {
             ball.radius;
 
         ball.dx =
-            Math.abs(ball.dx);
+            Math.abs(
+                ball.dx
+            );
     }
 
 
-    /* 오른쪽 벽 */
+    /*
+        오른쪽 벽
+    */
 
     if (
         ball.x +
@@ -742,11 +1039,15 @@ function moveBall() {
             ball.radius;
 
         ball.dx =
-            -Math.abs(ball.dx);
+            -Math.abs(
+                ball.dx
+            );
     }
 
 
-    /* 위쪽 벽 */
+    /*
+        위쪽 벽
+    */
 
     if (
         ball.y -
@@ -757,7 +1058,9 @@ function moveBall() {
             ball.radius;
 
         ball.dy =
-            Math.abs(ball.dy);
+            Math.abs(
+                ball.dy
+            );
     }
 
 
@@ -766,7 +1069,9 @@ function moveBall() {
     checkBrickCollision();
 
 
-    /* 공을 놓침 */
+    /*
+        바닥에 떨어짐
+    */
 
     if (
         ball.y -
@@ -789,30 +1094,32 @@ function moveBall() {
 
         resetPaddle();
 
-        message.textContent =
-            "💔 공을 놓쳤습니다! 남은 목숨: " +
+        messageElement.textContent =
+            "💔 공을 놓쳤습니다! " +
+            "남은 목숨: " +
             lives;
     }
-
 
     checkLevelClear();
 }
 
 
-/* ================================
+/* =========================================
    게임 오버
-================================ */
+========================================= */
 
 function gameOver() {
 
-    running = false;
+    gameRunning =
+        false;
 
     cancelAnimationFrame(
         animationFrame
     );
 
-    message.textContent =
-        "💀 GAME OVER! 점수: " +
+    messageElement.textContent =
+        "💀 GAME OVER! " +
+        "최종 점수: " +
         score;
 
     startButton.textContent =
@@ -820,13 +1127,13 @@ function gameOver() {
 }
 
 
-/* ================================
+/* =========================================
    게임 루프
-================================ */
+========================================= */
 
 function gameLoop() {
 
-    if (!running) {
+    if (!gameRunning) {
         return;
     }
 
@@ -843,13 +1150,13 @@ function gameLoop() {
 }
 
 
-/* ================================
+/* =========================================
    게임 시작
-================================ */
+========================================= */
 
 function startGame() {
 
-    if (animationFrame) {
+    if (animationFrame !== null) {
 
         cancelAnimationFrame(
             animationFrame
@@ -858,9 +1165,10 @@ function startGame() {
 
     resetGame();
 
-    running = true;
+    gameRunning =
+        true;
 
-    message.textContent =
+    messageElement.textContent =
         "🔥 게임 시작!";
 
     startButton.textContent =
@@ -870,9 +1178,9 @@ function startGame() {
 }
 
 
-/* ================================
+/* =========================================
    키보드
-================================ */
+========================================= */
 
 document.addEventListener(
     "keydown",
@@ -882,7 +1190,8 @@ document.addEventListener(
             event.key === "ArrowLeft"
         ) {
 
-            leftPressed = true;
+            leftPressed =
+                true;
 
             event.preventDefault();
         }
@@ -891,7 +1200,8 @@ document.addEventListener(
             event.key === "ArrowRight"
         ) {
 
-            rightPressed = true;
+            rightPressed =
+                true;
 
             event.preventDefault();
         }
@@ -900,7 +1210,7 @@ document.addEventListener(
             event.code === "Space"
         ) {
 
-            if (!running) {
+            if (!gameRunning) {
                 startGame();
             }
 
@@ -918,22 +1228,24 @@ document.addEventListener(
             event.key === "ArrowLeft"
         ) {
 
-            leftPressed = false;
+            leftPressed =
+                false;
         }
 
         if (
             event.key === "ArrowRight"
         ) {
 
-            rightPressed = false;
+            rightPressed =
+                false;
         }
     }
 );
 
 
-/* ================================
-   마우스 조작
-================================ */
+/* =========================================
+   마우스
+========================================= */
 
 canvas.addEventListener(
     "mousemove",
@@ -943,11 +1255,14 @@ canvas.addEventListener(
             canvas.getBoundingClientRect();
 
         const scaleX =
-            WIDTH / rect.width;
+            WIDTH /
+            rect.width;
 
         const mouseX =
-            (event.clientX -
-                rect.left) *
+            (
+                event.clientX -
+                rect.left
+            ) *
             scaleX;
 
         paddle.x =
@@ -955,7 +1270,202 @@ canvas.addEventListener(
             paddle.width / 2;
 
         if (paddle.x < 0) {
+
             paddle.x = 0;
         }
 
         if (
+            paddle.x +
+            paddle.width >
+            WIDTH
+        ) {
+
+            paddle.x =
+                WIDTH -
+                paddle.width;
+        }
+    }
+);
+
+
+/* =========================================
+   터치
+========================================= */
+
+canvas.addEventListener(
+    "touchmove",
+    function(event) {
+
+        event.preventDefault();
+
+        const touch =
+            event.touches[0];
+
+        if (!touch) {
+            return;
+        }
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+        const scaleX =
+            WIDTH /
+            rect.width;
+
+        const touchX =
+            (
+                touch.clientX -
+                rect.left
+            ) *
+            scaleX;
+
+        paddle.x =
+            touchX -
+            paddle.width / 2;
+
+        if (paddle.x < 0) {
+
+            paddle.x = 0;
+        }
+
+        if (
+            paddle.x +
+            paddle.width >
+            WIDTH
+        ) {
+
+            paddle.x =
+                WIDTH -
+                paddle.width;
+        }
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =========================================
+   모바일 버튼
+========================================= */
+
+function setupHoldButton(
+    button,
+    direction
+) {
+
+    button.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            event.preventDefault();
+
+            if (
+                direction === "left"
+            ) {
+
+                leftPressed =
+                    true;
+            }
+
+            if (
+                direction === "right"
+            ) {
+
+                rightPressed =
+                    true;
+            }
+        }
+    );
+
+    button.addEventListener(
+        "pointerup",
+        function() {
+
+            if (
+                direction === "left"
+            ) {
+
+                leftPressed =
+                    false;
+            }
+
+            if (
+                direction === "right"
+            ) {
+
+                rightPressed =
+                    false;
+            }
+        }
+    );
+
+    button.addEventListener(
+        "pointercancel",
+        function() {
+
+            leftPressed =
+                false;
+
+            rightPressed =
+                false;
+        }
+    );
+
+    button.addEventListener(
+        "pointerleave",
+        function() {
+
+            if (
+                direction === "left"
+            ) {
+
+                leftPressed =
+                    false;
+            }
+
+            if (
+                direction === "right"
+            ) {
+
+                rightPressed =
+                    false;
+            }
+        }
+    );
+}
+
+
+setupHoldButton(
+    leftButton,
+    "left"
+);
+
+setupHoldButton(
+    rightButton,
+    "right"
+);
+
+
+/* =========================================
+   시작 버튼
+========================================= */
+
+startButton.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================================
+   첫 화면
+========================================= */
+
+resetGame();
+
+draw();
+
+</script>
+
+</body>
+</html>
